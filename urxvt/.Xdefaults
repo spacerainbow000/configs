@@ -110,5 +110,6 @@ URxvt.tabbedex.new-button:  no
 !!! TRANSPARENCY !!!
 !!!!!!!!!!!!!!!!!!!!
 
-URxvt.transparent: true
-urXVt.shading: 15 ! URxvt.shading: 0 to 99 darkens, 101 to 200 lightens
+urxvt.transparent: true
+!URxvt*tintColor: #222222
+URxvt*tintColor: #333333
