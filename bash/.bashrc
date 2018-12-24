@@ -8,20 +8,20 @@ alias emasc='emacs -nw'
 cdl() {
     if [ -z "$1" ]
     then
-        echo "NO DIR SPECIFIED ;" ; pwd ; ls
+	echo "NO DIR SPECIFIED ;" ; pwd ; ls
     else
-        cd $1 ; pwd ; ls
+	cd "${@}" ; pwd ; ls
     fi
 }
 cdb() {
     if [ -z "$1" ]
     then
-        cd .. ;
+	cd .. ;
     else
-        for f in $(seq 1 $1) ;
-        do
-            cd .. ;
-        done
+	for f in $(seq 1 ${1}) ;
+	do
+	    cd .. ;
+	done
 
     fi
     pwd ; ls
@@ -29,8 +29,8 @@ cdb() {
 mkcd() {
     if [ -z "$1" ]
     then
-        echo "NO DIR SPECIFIED ;" ; pwd
+	echo "NO DIR SPECIFIED ;" ; pwd
     else
-        mkdir $1 ; cd $1 ; pwd
+	mkdir "${@}" ; cd "${@}" ; pwd
     fi
 }
