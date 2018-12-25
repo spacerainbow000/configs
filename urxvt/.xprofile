@@ -1,0 +1,13 @@
+#DWM status bar info
+while true ;
+do
+    #legacy
+    xsetroot -name "$(echo $( if res=$(nmcli c | egrep -i 'wlp59s0') ; then echo -n "wifi : " ; echo "${res}" | awk '{print $1;}' ; elif res=$(nmcli c | egrep -i 'ethernet') ; then echo -n "eth: " ; echo "${res}" |  awk '{print $1;}' ; fi ) '|' $( echo "bat: $(cat /sys/class/power_supply/BAT0/capacity)%" ) '| date:' $( date +%a\ %b\ %d\ %I:%M\ %p\ %Z\ %Y ))"
+    sleep 5
+done &
+
+#fix resolution for big monitor
+xrandr -s 1920x1080
+
+#set background
+feh --bg-center /usr/local/backgrounds/greenplanet.jpg

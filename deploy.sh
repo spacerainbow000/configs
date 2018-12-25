@@ -16,6 +16,7 @@ ln -s emacs/.emacs ~/.emacs.d/init.el
 
 #link urxvt config
 ln -s urxvt/.Xdefaults ~/.Xdefaults
+ln -s urxvt/.xprofile ~/.xprofile
 
 #make dwm source directory
 sudo mkdir -p /usr/local/src
