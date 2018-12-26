@@ -2,9 +2,9 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"monospace:size=20"
+	"monospace:size=12"
 };
-static const char dmenufont[]       = "monospace:size=20";
+static const char dmenufont[]       = "monospace:size=12";
 //static const char normbordercolor[] = "#444444";
 //static const char normbgcolor[]     = "#222222";
 //static const char normfgcolor[]     = "#bbbbbb";
@@ -23,7 +23,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "term", "browser", "slack", "misc" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -62,6 +62,12 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "urxvt", NULL };
 
+/* volume control */
+static const char *upvol[]   = { "amixer", "set", "Master", "3+",     NULL };
+static const char *downvol[] = { "amixer", "set", "Master", "3-",     NULL };
+static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
+
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -97,6 +103,10 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	/* volume control - change key column value based on which F-keys control volume on your keyboard */
+	{ MODKEY,                       XK_F3,    spawn,          {.v = upvol   } },
+	{ MODKEY,                       XK_F2,    spawn,          {.v = downvol } },
+	{ MODKEY,                       XK_F1,     spawn,          {.v = mutevol } },
 };
 
 /* button definitions */
