@@ -93,6 +93,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	/* volume control - change key column value based on which F-keys control volume on your keyboard */
+	{ MODKEY,                       XK_F3,     spawn,          {.v = upvol   } },
+	{ MODKEY,                       XK_F2,     spawn,          {.v = downvol } },
+	{ MODKEY,                       XK_F1,     spawn,          {.v = mutevol } },
+	/* end volume control section */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -103,10 +108,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	/* volume control - change key column value based on which F-keys control volume on your keyboard */
-	{ MODKEY,                       XK_F3,    spawn,          {.v = upvol   } },
-	{ MODKEY,                       XK_F2,    spawn,          {.v = downvol } },
-	{ MODKEY,                       XK_F1,     spawn,          {.v = mutevol } },
 };
 
 /* button definitions */
