@@ -158,6 +158,14 @@
   (setq search-region t)
   (isearch-mode t (not (null regexp-p)) nil (not no-recursive-edit)))
 
+;; autoformat and fix tabs in buffer
+(defun indent-file ()
+  "indent whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; EXTRA MODE CONFIGS ;;;
