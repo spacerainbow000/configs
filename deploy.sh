@@ -25,11 +25,11 @@ sudo mkdir -p /usr/local/src
 if [ -d /usr/local/src/dwm* ] ;
 then
     cd /usr/local/src/dwm*
-    git pull
+    sudo git pull
     rm -f config.h
 else
     cd /usr/local/src
-    git clone https://git.suckless.org/dwm
+    sudo git clone https://git.suckless.org/dwm
     sudo chown -R ${USER} /usr/local/src/dwm*
     cd /usr/local/src/dwm*
     rm -f config.h
