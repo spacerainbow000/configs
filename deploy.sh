@@ -22,14 +22,12 @@ ln -s urxvt/.xprofile ~/.xprofile
 sudo mkdir -p /usr/local/src
 
 #maybe clone dwm repo if it isn't there already
-if [ -d /usr/local/src/dwm* ] ;
+if [ ! -d /usr/local/src/dwm* ] ;
 then
-    cd /usr/local/src/dwm*
-    sudo git pull
-    rm -f config.h
-else
     cd /usr/local/src
-    sudo git clone https://git.suckless.org/dwm
+    sudo wget http://dl.suckless.org/dwm/dwm-6.1.tar.gz
+    sudo tar -xvzf dwm-6.1.tar.gz
+    sudo rm -f dwm-6.1.tar.gz
     sudo chown -R ${USER} /usr/local/src/dwm*
     cd /usr/local/src/dwm*
     rm -f config.h
