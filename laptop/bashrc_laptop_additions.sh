@@ -1,0 +1,8 @@
+alias wifi='nmcli'
+alias battery='cat /sys/class/power_supply/BAT0/capacity'
+alias mute='pactl set-sink-volume 0 0%'
+alias maxvolume='pactl set-sink-volume 0 100%'
+alias brightness='xrandr --verbose | grep Brightness | awk -F ":" "{print $2;}"'
+alias brighter='CURRENTDISPLAY=$(xrandr | grep " connected" | egrep -vi "primary" | cut -f1 -d " ") ; CURRENTBRIGHTNESS=$(xrandr --verbose | grep Brightness | uniq | grep -Eo "[+-]?[0-9]+([.][0-9]+)?") ; NEWBRIGHTNESS=$(dc --expression="${CURRENTBRIGHTNESS} 0.1 + p c q") ; xrandr --output ${CURRENTDISPLAY} --brightness ${NEWBRIGHTNESS}'
+alias dimmer='CURRENTDISPLAY=$(xrandr | grep " connected" | egrep -vi "primary" | cut -f1 -d " ") ; CURRENTBRIGHTNESS=$(xrandr --verbose | grep Brightness | uniq | grep -Eo "[+-]?[0-9]+([.][0-9]+)?") ; NEWBRIGHTNESS=$(dc --expression="${CURRENTBRIGHTNESS} 0.1 - p c q") ; xrandr --output ${CURRENTDISPLAY} --brightness ${NEWBRIGHTNESS}'
+alias resetbrightness='CURRENTDISPLAY=$(xrandr | grep " connected" | egrep -vi "primary" | cut -f1 -d " ") ; xrandr --output ${CURRENTDISPLAY} --brightness 1'
