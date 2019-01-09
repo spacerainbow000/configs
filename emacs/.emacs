@@ -174,14 +174,17 @@
 ;;;;;;;;;;;;;;;;
 
 ;; make sure org directory exists
-(start-process-shell-command "ensure-emacs-org-dir-existent" "mkdir -p ~/.emacs/org")
-(start-process-shell-command "ensure-emacs-org-dir-existent" "ln -s ~/.emacs/org ~/org > /dev/null 2>&1")
+(start-process-shell-command "ensure-emacs-org-dir-existent" "mkdir -p ~/.emacs.d/org")
+(start-process-shell-command "ensure-emacs-org-dir-existent" "ln -s ~/.emacs.d/org ~/org > /dev/null 2>&1")
 
 ;; keyboard shortcuts for store-link and agenda
 (require 'org)
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+
+;; add toggle line wrap binding
+(define-key org-mode-map "\M-q" 'toggle-truncate-lines)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
