@@ -91,7 +91,7 @@
       `((".*" "~/.emacs_saves/" t)))
 
 ;; make sure .emacs_saves exists
-(start-process-shell-command "mkdir -p ~/.emacs_saves")
+(start-process-shell-command "ensure-emacs-saves-dir-existent" "mkdir -p ~/.emacs_saves")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; USEFUL FUNCTIONS ;;;
@@ -174,8 +174,8 @@
 ;;;;;;;;;;;;;;;;
 
 ;; make sure org directory exists
-(start-process-shell-command "mkdir -p ~/.emacs/org")
-(start-process-shell-command "ln -s ~/.emacs/org ~/org > /dev/null 2>&1")
+(start-process-shell-command "ensure-emacs-org-dir-existent" "mkdir -p ~/.emacs/org")
+(start-process-shell-command "ensure-emacs-org-dir-existent" "ln -s ~/.emacs/org ~/org > /dev/null 2>&1")
 
 ;; keyboard shortcuts for store-link and agenda
 (require 'org)
