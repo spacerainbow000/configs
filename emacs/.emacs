@@ -90,6 +90,8 @@
 (setq auto-save-file-name-transforms
       `((".*" "~/.emacs_saves/" t)))
 
+;; make sure .emacs_saves exists
+(start-process-shell-command "mkdir -p ~/.emacs_saves")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; USEFUL FUNCTIONS ;;;
@@ -165,6 +167,21 @@
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
     (untabify (point-min) (point-max)))
+
+
+;;;;;;;;;;;;;;;;
+;;; ORG MODE ;;;
+;;;;;;;;;;;;;;;;
+
+;; make sure org directory exists
+(start-process-shell-command "mkdir -p ~/.emacs/org")
+(start-process-shell-command "ln -s ~/.emacs/org ~/org > /dev/null 2>&1")
+
+;; keyboard shortcuts for store-link and agenda
+(require 'org)
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
