@@ -2,7 +2,7 @@ export PS1="\[\e[01;32m\]\u @ \h : \W [ \A ] >>> \[\e[38;5;15m\]"
 
 shopt -s histappend
 export HISTCONTROL=ignoredups
-export PROMPT_COMMAND="history -a; history -n" #shared bash history
+export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}" #shared bash history
 
 alias ls='ls -hlaF --color=tty --group-directories-first'
 alias cls='clear ; clear'
