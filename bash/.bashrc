@@ -1,4 +1,7 @@
 export PS1="\[\e[01;32m\]\u @ \h : \W [ \A ] >>> \[\e[38;5;15m\]"
+#shared terminal history
+shopt -s histappend
+export PROMPT_COMMAND="history -a; history -n"
 alias ls='ls -hlaF --color=tty --group-directories-first'
 alias cls='clear ; clear'
 alias csl='clear ; clear'
