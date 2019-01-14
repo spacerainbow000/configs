@@ -5,6 +5,10 @@ readonly BASEDIR=$(pwd)
 #copy bashrc instead of symlinking it, since it will probably be added to manually often with modifications that don't belong in-repo
 cp -f bash/.bashrc ~/.bashrc
 
+#see whether emacs is missing
+command -v emacs > /dev/null 2>&1 || echo "emacs appears to be missing! run emacs-deploy.sh in emacs/ to install"
+sleep 1
+
 #make emacs backups dir
 mkdir -p ~/.emacs_saves
 chmod 750 ~/.emacs.d
