@@ -7,3 +7,5 @@ cd bash-5.0
 make && sudo make install
 rm -rf /tmp/bash-5.0.tar.gz
 rm -rf /tmp/bash-5.0/
+sudo rm -f /bin/bash
+sudo ln -s /usr/local/bin/bash /bin/bash
