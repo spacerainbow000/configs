@@ -4,6 +4,8 @@ shopt -s histappend
 export HISTCONTROL=ignoredups
 export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}" #shared bash history
 
+export EDITOR=emacs
+
 alias ls='ls -hlaF --color=tty --group-directories-first'
 alias cls='clear ; clear'
 alias csl='clear ; clear'
@@ -17,7 +19,7 @@ cdl() {
     then
 	echo "NO DIR SPECIFIED ;" ; pwd ; ls
     else
-	cd "${@}" ; pwd ; ls
+	cd "${@}" && { pwd ; ls ; }
     fi
 }
 cdb() {
@@ -38,6 +40,6 @@ mkcd() {
     then
 	echo "NO DIR SPECIFIED ;" ; pwd
     else
-	mkdir "${@}" ; cd "${@}" ; pwd
+	mkdir "${@}" && { cd "${@}" ; pwd ; }
     fi
 }
