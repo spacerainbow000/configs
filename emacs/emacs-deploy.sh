@@ -29,6 +29,9 @@ cd emacs-25.2
 make
 make install
 
+### elpy dependencies
+pip3 install -y rope jedi yapf flake8 autopep8
+
 ### clean up
 ln -s /usr/local/bin/emacs /bin/emacs
 rm -rf /opt/emacs

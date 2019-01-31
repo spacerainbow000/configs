@@ -51,7 +51,7 @@
 
 ;; line numbers
 (global-linum-mode 1)
-; Swap line numbers using C-<f5>
+                                        ; Swap line numbers using C-<f5>
 (autoload 'linum-mode "linum" "toggle line numbers on/off" t)
 (global-set-key (kbd "C-<f5>") 'linum-mode)
 (line-number-mode 1)
@@ -93,6 +93,7 @@
 ;; make sure .emacs_saves exists
 (start-process-shell-command "ensure-emacs-saves-dir-existent" "mkdir -p ~/.emacs_saves")
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; USEFUL FUNCTIONS ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -102,12 +103,12 @@
   "Scroll the other window one line up."
   (interactive)
   (scroll-other-window -1)
-)
+  )
 (defun scroll-other-window-down ()
   "Scroll the other window one line down."
   (interactive)
   (scroll-other-window 1)
-)
+  )
 (global-set-key [C-M-S-up] 'scroll-other-window-up)
 (global-set-key [C-M-S-down] 'scroll-other-window-down)
 
@@ -166,7 +167,7 @@
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
-    (untabify (point-min) (point-max)))
+  (untabify (point-min) (point-max)))
 
 
 ;;;;;;;;;;;;;;;;
@@ -231,12 +232,11 @@
   :ensure t)
 (defun confdef-elpy-mode-hook ()
   (elpy-mode))
-;(defun confdef-elpy-ensure-dependencies-installed ()
-;  (start-process-shell-command "elpy-ensure-dependencies-installed" "*Messages*" "if [[ ! $(pip freeze 2>/dev/null | egrep -i 'rope|jedi' | wc -l) == 2 ]] ; then echo 'INSTALLING ROPE + JEDI' ; pip install --user rope jedi ; fi"))
 (add-hook 'python-mode-hook 'confdef-elpy-mode-hook)
-;(add-hook 'confdef-elpy-mode-hook 'confdef-elpy-ensure-dependencies-installed)
 (add-hook 'confdef-elpy-mode-hook 'confdef-global-dev-mode-hook)
-;stuff commented out for performance reasons
+(add-hook 'python-mode-hook (function (lambda ()
+                                        (setq indent-tabs-mode nil
+                                              tab-width 4))))
 
 ;; - JAVA - ;;
 
@@ -257,4 +257,3 @@
 
 
 ;;; END PREDEFINED CONFIG
-
