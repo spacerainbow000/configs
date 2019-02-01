@@ -93,6 +93,13 @@ URxvt*cursorColor: #4e9a06
 URxvt.perl-ext-common: selection-to-clipboard
 
 
+!!!!!!!!!!!!!!!!!!!!!
+!!! SPECIAL MODES !!!
+!!!!!!!!!!!!!!!!!!!!!
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+
 !!!!!!!!!!!!!!!
 !!! TABBING !!!
 !!!!!!!!!!!!!!!
