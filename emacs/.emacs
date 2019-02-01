@@ -26,7 +26,7 @@
 (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("sc" . "http://joseito.republika.pl/sunrise-commander/"))
+;(add-to-list 'package-archives '("sc" . "http://joseito.republika.pl/sunrise-commander/"))
 (add-to-list 'package-archives '("cselpa" . "https://elpa.thecybershadow.net/packages/"))
 (package-initialize)
 (unless (package-installed-p 'use-package) ; install use-package
