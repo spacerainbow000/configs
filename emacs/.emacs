@@ -26,7 +26,7 @@
 (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-;(add-to-list 'package-archives '("sc" . "http://joseito.republika.pl/sunrise-commander/"))
+                                        ;(add-to-list 'package-archives '("sc" . "http://joseito.republika.pl/sunrise-commander/"))
 (add-to-list 'package-archives '("cselpa" . "https://elpa.thecybershadow.net/packages/"))
 (package-initialize)
 (unless (package-installed-p 'use-package) ; install use-package
@@ -186,6 +186,12 @@
 
 ;; add toggle line wrap binding
 (define-key org-mode-map "\M-q" 'toggle-truncate-lines)
+
+;; do nice indenting
+(use-package org
+  :config
+  (setq org-startup-indented t))
+; the face attribute 'org-indent' will need to be changed once this is set up; there's no way to easily configure it via an emacs conf change, so you have to do M-x customize-face RET org-mode RET. there is also (set-face-attribute 'foo nil :weight 'bold :slant 'italic) but I don't know what goes where in that
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
