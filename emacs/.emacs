@@ -7,13 +7,14 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
+    (zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-hide ((t (:foreground "black")))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; PACKAGE REPO CONFIGURATION ;;;
@@ -44,6 +45,11 @@
 ;; change selected region color
 (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
 
+;; enable zenburn
+(use-package zenburn-theme
+  :ensure t
+  :config
+  (load-theme 'zenburn t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; GENERAL CONFIGURATION ;;;
@@ -191,7 +197,7 @@
 (use-package org
   :config
   (setq org-startup-indented t))
-; the face attribute 'org-indent' will need to be changed once this is set up; there's no way to easily configure it via an emacs conf change, so you have to do M-x customize-face RET org-mode RET. there is also (set-face-attribute 'foo nil :weight 'bold :slant 'italic) but I don't know what goes where in that
+                                        ; the face attribute 'org-indent' will need to be changed once this is set up; there's no way to easily configure it via an emacs conf change, so you have to do M-x customize-face RET org-mode RET. there is also (set-face-attribute 'foo nil :weight 'bold :slant 'italic) but I don't know what goes where in that
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -230,6 +236,11 @@
 (defun confdef-global-dev-mode-hook ()
   (flycheck-mode)
   (company-mode))
+
+;; - BASH - ;;
+
+;; shellcheck hook
+(add-hook 'sh-mode-hook 'flycheck-mode)
 
 ;; - PYTHON - ;;
 
