@@ -1,5 +1,8 @@
 #!/bin/bash
 
+### set workdir
+readonly WDIR=$(readlink -m "$(dirname "${0}")" 2>/dev/null)
+
 ### perform install as root
 sudo su -
 
@@ -19,9 +22,9 @@ then
 fi
 
 ### compile and install emacs
-mkdir /opt/emacs
-chmod 777 /opt/emacs
-cd /opt/emacs
+mkdir -p /tmp/emacs
+chmod 777 /tmp/emacs
+cd /tmp/emacs
 wget https://ftp.gnu.org/pub/gnu/emacs/emacs-25.2.tar.xz
 tar xvJf emacs-25.2.tar.xz
 cd emacs-25.2
@@ -33,5 +36,20 @@ make install
 pip3 install -y rope jedi yapf flake8 autopep8
 
 ### clean up
+rm -f /bin/emacs
 ln -s /usr/local/bin/emacs /bin/emacs
-rm -rf /opt/emacs
+rm -rf /tmp/emacs
+
+### leave root
+logout
+
+### make emacs save directory
+mkdir -p ~/.emacs_saves
+
+### link config into place
+cd ${WDIR}
+rm -f ~/.emacs
+mkdir -p ~/.emacs.d
+chmod 700 ~/.emacs.d
+rm -f ~/.emacs.d/init.el
+ln -s .emacs ~/.emacs.d/init.el
