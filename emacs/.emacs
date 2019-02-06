@@ -199,6 +199,15 @@
   (setq org-startup-indented t))
                                         ; the face attribute 'org-indent' will need to be changed once this is set up; there's no way to easily configure it via an emacs conf change, so you have to do M-x customize-face RET org-mode RET. there is also (set-face-attribute 'foo nil :weight 'bold :slant 'italic) but I don't know what goes where in that
 
+;; allow open links in browser
+(defun my-org-open-at-point (&optional arg)
+  (interactive "P")
+  (if (not arg)
+      (org-open-at-point)
+    (let ((browse-url-browser-function #'browse-url-chromium))
+      (org-open-at-point))))
+(define-key org-mode-map (kbd "C-c C-o") #'my-org-open-at-point)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; EXTRA MODE CONFIGS ;;;
