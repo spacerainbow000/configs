@@ -7,7 +7,7 @@ readonly WDIR=$(readlink -m "$(dirname "${0}")" 2>/dev/null)
 ### CENTOS ###
 if [ -f /etc/redhat-release ] ;
 then
-    yum -y install mlocate net-tools curl wget nc unzip tcl expect strace shellcheck nmap nano jq ed bc dc tmux
+    yum -y install mlocate net-tools curl wget nc unzip tcl expect strace shellcheck nmap nano jq ed bc dc tmux shellcheck
     updatedb
 elif [ -f /etc/os-release ] ;
 then
@@ -15,7 +15,7 @@ then
     ### *BUNTU ###
     ### DEBIAN ###
     [[ "${NAME}" == *"buntu" ]] || [[ "${NAME}" == *"ebian" ]] && {
-        apt-get install -y mlocate net-tools curl wget netcat unzip tcl tcl-expect strace shellcheck nmap nano jq ed bc dc tmux
+        apt-get install -y mlocate net-tools curl wget netcat unzip tcl tcl-expect strace shellcheck nmap nano jq ed bc dc tmux shellcheck
     }
     updatedb
 fi

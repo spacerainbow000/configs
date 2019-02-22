@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
+    (nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -46,10 +46,10 @@
 (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
 
 ;; enable zenburn
-(use-package zenburn-theme
-  :ensure t
-  :config
-  (load-theme 'zenburn t))
+;; (use-package zenburn-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'zenburn t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; GENERAL CONFIGURATION ;;;
