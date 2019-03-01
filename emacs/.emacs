@@ -193,6 +193,37 @@
 ;; add toggle line wrap binding
 (define-key org-mode-map "\M-q" 'toggle-truncate-lines)
 
+;; load babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (sh . t)
+   (awk . t)
+   (screen . t)
+   (C . t)
+   (ditaa . t)
+   (gnuplot . t)
+   (haskell . t)
+   (java . t)
+   (js . t)
+   (latex . t)
+   (ledger . t)
+   (lisp . t)
+   (org . t)
+   (perl . t)
+   (python . t)
+   (ruby . t)
+   (scheme . t)
+   (sql . t)
+   (sqlite . t)
+   (R . t)
+   ;; (lua . t)
+   ;; (matlab . t)
+   ;; (processing . t)
+   ;; (sed . t)
+   ;; (C++ . t)
+   ))
+
 ;; do nice indenting
 (use-package org
   :config
