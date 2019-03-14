@@ -5,9 +5,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(package-selected-packages
    (quote
-    (auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
+    (smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -63,6 +66,23 @@
 ;;   (load-theme 'zenburn t))
 
 (set-frame-parameter nil 'alpha nil)
+
+;; disable menu bar
+(unless (display-graphic-p)
+  (menu-bar-mode -1))
+
+;; set up powerline
+(use-package smart-mode-line
+  :ensure t)
+(use-package smart-mode-line-powerline-theme
+  :ensure t)
+;; (when (member "hack" (font-family-list)) (setq sml/theme 'powerline))
+;; (when (member "hack" (font-family-list)) (sml/setup))
+(setq sml/theme 'powerline)
+(sml/setup)
+
+;; more powerline configs
+;(setq powerline-default-separator-dir '(right . left))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
