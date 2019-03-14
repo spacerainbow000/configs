@@ -18,6 +18,21 @@ then
     }
 fi
 
+### install font dependency with package manager also
+### CENTOS ###
+if [ -f /etc/redhat-release ] ;
+then
+    yum -y install dnf-plugins-core :: heliocastro/hack-fonts :: hack-fonts
+elif [ -f /etc/os-release ] ;
+then
+    ### *BUNTU ###
+    ### DEBIAN ###
+    . /etc/os-release
+    [[ "${NAME}" == *"buntu" ]] || [[ "${NAME}" == *"ebian" ]] && {
+        apt-get install fonts-hack-ttf
+    }
+fi
+	
 ### symlink urxvt configs
 cd ${WDIR}
 rm -f ~/.Xdefaults
