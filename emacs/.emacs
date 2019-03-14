@@ -7,7 +7,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
+    (auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -38,6 +38,7 @@
 (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+;;(add-to-list 'package-archives '("sc" . "http://joseito.republika.pl/sunrise-commander/"))
 (add-to-list 'package-archives '("cselpa" . "https://elpa.thecybershadow.net/packages/"))
 (package-initialize)
 (unless (package-installed-p 'use-package) ; install use-package
@@ -60,6 +61,9 @@
 ;;   :ensure t
 ;;   :config
 ;;   (load-theme 'zenburn t))
+
+(set-frame-parameter nil 'alpha nil)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; GENERAL CONFIGURATION ;;;
@@ -234,6 +238,28 @@
    ;; (C++ . t)
    ))
 
+;; allow automatic code execution of certain code blocks
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not
+   (or
+    (string= lang "emacs-lisp")
+    (string= lang "sh")
+    (string= lang "awk")
+    (string= lang "ditaa")
+    (string= lang "gnuplot")
+    (string= lang "js")
+    (string= lang "latex")
+    (string= lang "ledger")
+    (string= lang "lisp")
+    (string= lang "org")
+    (string= lang "perl")
+    (string= lang "python")
+    (string= lang "ruby")
+    (string= lang "scheme")
+    (string= lang "R")
+    )))
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
 ;; do nice indenting
 (use-package org
   :config
@@ -291,6 +317,11 @@
 
 ;; shellcheck hook
 (add-hook 'sh-mode-hook 'flycheck-mode)
+
+;; autocomplete
+(require 'auto-complete)
+(require 'auto-complete-config)
+(ac-config-default)
 
 ;; - PYTHON - ;;
 
