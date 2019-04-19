@@ -10,7 +10,7 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
  '(package-selected-packages
    (quote
-    (smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
+    (navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -51,6 +51,9 @@
   (require 'use-package))
 (require 'bind-key)
 
+;; .el files go in ~/.emacs.d/lisp/
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(load "togetherly")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; DISPLAY CONFIGURATION ;;;
@@ -59,12 +62,7 @@
 ;; change selected region color
 (set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
 
-;; enable zenburn
-;; (use-package zenburn-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'zenburn t))
-
+;; fix zenburn background
 (set-frame-parameter nil 'alpha nil)
 
 ;; disable menu bar
@@ -82,7 +80,7 @@
 (sml/setup)
 
 ;; more powerline configs
-;(setq powerline-default-separator-dir '(right . left))
+                                        ;(setq powerline-default-separator-dir '(right . left))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -202,12 +200,13 @@
   (isearch-mode t (not (null regexp-p)) nil (not no-recursive-edit)))
 
 ;; autoformat and fix tabs in buffer
-(defun indent-file ()
+(defun region-reindent ()
   "indent whole buffer"
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
+(define-key ctl-x-map "t" 'region-reindent)
 
 
 ;;;;;;;;;;;;;;;;
@@ -295,6 +294,14 @@
       (org-open-at-point))))
 (define-key org-mode-map (kbd "C-c C-o") #'my-org-open-at-point)
 
+;; render terminal colors in org result buffers
+(require 'ansi-color)
+(defun display-ansi-colors ()
+  (interactive)
+  (ansi-color-apply-on-region (point-min) (point-max)))
+(display-ansi-colors) ;; render initially when buffer is opened
+(add-hook 'org-babel-after-execute-hook 'display-ansi-colors)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; EXTRA MODE CONFIGS ;;;
@@ -314,6 +321,43 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; DEV MODE CONFIGS ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; - IDE CONFIGS - ;;
+
+;; set parameters
+(defvar parameters
+  '(window-parameters . ((no-other-window . t)
+                         (no-delete-other-windows . t))))
+(setq fit-window-to-buffer-horizontally t)
+(setq window-resize-pixelwise t)
+
+;; start dired in left hand sidebar
+(defun dired-sidebar ()
+  "Display `default-directory' in side window on left, hiding details."
+  (interactive)
+  (let ((buffer (dired-noselect default-directory)))
+    (with-current-buffer buffer (dired-hide-details-mode t))
+    (display-buffer-in-side-window
+     buffer `((side . left) (slot . 0)
+              (window-width . fit-window-to-buffer)
+              (preserve-size . (t . nil)) ,parameters))))
+
+;; start multi-term dedicated debugger window
+(defun debugger-terminal ()
+  "open dedicated debugger terminal window"
+  (interactive)
+  (let
+      (command-execute multi-term-dedicated-open)))
+
+
+;; open IDE mode
+(defun ide-mode ()
+  "open IDE window layout"
+  (interactive)
+  (let
+      (dired-sidebar)
+    (debugger-terminal)))
+
 
 ;; - GENERAL DEV - ;;
 
