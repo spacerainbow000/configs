@@ -8,9 +8,19 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" default)))
+ '(multi-term-program nil)
+ '(multi-term-scroll-to-bottom-on-output t)
  '(package-selected-packages
    (quote
-    (navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum))))
+    (navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
+ '(term-bind-key-alist
+   (quote
+    (("M-f" . term-send-forward-word)
+     ("M-b" . term-send-backward-word)
+     ("M-d" . term-send-forward-kill-word)
+     ("M-=" . term-send-backward-kill-word)
+     ("C-c" . term-interrupt-subjob))))
+ '(term-unbind-key-list (quote ("C-x" "C-h" "<ESC>"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -129,7 +139,7 @@
       `((".*" "~/.emacs_saves/" t)))
 
 ;; make sure .emacs_saves exists
-(start-process-shell-command "ensure-emacs-saves-dir-existent" "mkdir -p ~/.emacs_saves")
+(start-process-shell-command "ensure-emacs-saves-dir-existent" nil "mkdir -p ~/.emacs_saves")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
@@ -214,8 +224,8 @@
 ;;;;;;;;;;;;;;;;
 
 ;; make sure org directory exists
-(start-process-shell-command "ensure-emacs-org-dir-existent" "mkdir -p ~/.emacs.d/org")
-(start-process-shell-command "ensure-emacs-org-dir-existent" "ln -s ~/.emacs.d/org ~/org > /dev/null 2>&1")
+(start-process-shell-command "ensure-emacs-org-dir-existent" nil "mkdir -p ~/.emacs.d/org")
+(start-process-shell-command "ensure-emacs-org-dir-existent" nil "ln -s ~/.emacs.d/org ~/org > /dev/null 2>&1")
 
 ;; keyboard shortcuts for store-link and agenda
 (require 'org)
@@ -346,17 +356,26 @@
 (defun debugger-terminal ()
   "open dedicated debugger terminal window"
   (interactive)
-  (let
-      (command-execute multi-term-dedicated-open)))
+  (let ((buffer (multi-term-dedicated-open)))
+    (with-current-buffer buffer)
+    (display-buffer
+     buffer `(parameters))
+    ))
 
-
-;; open IDE mode
+;; open IDE mode (dired-sidebar and debugger-terminal)
 (defun ide-mode ()
   "open IDE window layout"
   (interactive)
-  (let
-      (dired-sidebar)
-    (debugger-terminal)))
+  (let ((dired_buffer (dired-noselect default-directory)) (multiterm_buffer (multi-term-dedicated-open)))
+    (with-current-buffer dired_buffer (dired-hide-details-mode t))
+    (display-buffer-in-side-window
+     dired_buffer `((side . left) (slot . 0)
+                    (window-width . fit-window-to-buffer)
+                    (preserve-size . (t . nil)) ,parameters))
+    (with-current-buffer multiterm_buffer)
+    (display-buffer
+     multiterm_buffer `(parameters)))
+  )
 
 
 ;; - GENERAL DEV - ;;
