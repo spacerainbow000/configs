@@ -12,7 +12,7 @@
  '(multi-term-scroll-to-bottom-on-output t)
  '(package-selected-packages
    (quote
-    (navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
+    (sly rudel navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
  '(term-bind-key-alist
    (quote
     (("M-f" . term-send-forward-word)
@@ -159,6 +159,21 @@
   )
 (global-set-key [C-M-S-up] 'scroll-other-window-up)
 (global-set-key [C-M-S-down] 'scroll-other-window-down)
+
+;; move text between windows
+(defun move-region-to-other-window (start end)
+  "Move selected text to other window"
+  (interactive "r")
+  (if (use-region-p)
+      (let ((count (count-words-region start end)))
+        (save-excursion
+          (kill-region start end)
+          (other-window 1)
+          (yank)
+          (newline))
+        (other-window -1)
+        (message "Moved %s words" count))
+    (message "No region selected")))
 
 ;; toggle window split
 (defun swap-window-split () ; www.emacswiki.org/emacs/ToggleWindowSplit
