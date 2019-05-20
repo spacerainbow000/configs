@@ -98,13 +98,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; line numbers
-(global-linum-mode 1)
+(global-nlinum-mode 1)
                                         ; Swap line numbers using C-<f5>
-(autoload 'linum-mode "linum" "toggle line numbers on/off" t)
-(global-set-key (kbd "C-<f5>") 'linum-mode)
+(autoload 'nlinum-mode "linum" "toggle line numbers on/off" t)
+(global-set-key (kbd "C-<f5>") 'nlinum-mode)
 (line-number-mode 1)
-(linum-mode 1)
-(setq linum-format "%d  ")
+(nlinum-mode 1)
+(setq nlinum-format "%d ")
 
 ;; tab width
 (setq tab-width 4)
