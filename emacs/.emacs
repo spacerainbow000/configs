@@ -12,13 +12,13 @@
  '(multi-term-scroll-to-bottom-on-output t)
  '(package-selected-packages
    (quote
-    (sly rudel navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
+    (aggressive-indent sly rudel navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
  '(term-bind-key-alist
    (quote
     (("M-f" . term-send-forward-word)
      ("M-b" . term-send-backward-word)
      ("M-d" . term-send-forward-kill-word)
-     ("M-=" . term-send-backward-kill-word)
+     ("M-DEL" . term-send-backward-kill-word)
      ("C-c" . term-interrupt-subjob))))
  '(term-unbind-key-list (quote ("C-x" "C-h" "<ESC>"))))
 (custom-set-faces

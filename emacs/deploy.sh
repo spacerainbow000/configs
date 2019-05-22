@@ -50,6 +50,10 @@ mkdir -p ~/.emacs_saves
 cd ${WDIR}
 rm -f ~/.emacs
 mkdir -p ~/.emacs.d
-chmod 700 ~/.emacs.d
+mkdir -p ~/.emacs.d/lisp
+chmod -R 700 ~/.emacs.d
 rm -f ~/.emacs.d/init.el
 ln -s .emacs ~/.emacs.d/init.el
+
+### copy packages into place
+cp ./togetherly.el ~/.emacs.d/lisp/togetherly.el
