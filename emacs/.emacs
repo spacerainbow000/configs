@@ -12,7 +12,17 @@
  '(multi-term-scroll-to-bottom-on-output t)
  '(package-selected-packages
    (quote
-    (aggressive-indent sly rudel navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
+    (treemacs org-kanban elisp-lint aggressive-indent sly rudel navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
+ '(safe-local-variable-values
+   (quote
+    ((eval progn
+           (org-babel-goto-named-src-block "startup")
+           (org-babel-execute-src-block)
+           (outline-hide-sublevels 1))
+     (eval progn
+           (org-babel-goto-named-src-block "startup")
+           (org-babel-execute-src-block))
+     (org-confirm-babel-evaluate))))
  '(term-bind-key-alist
    (quote
     (("M-f" . term-send-forward-word)
@@ -64,6 +74,8 @@
 ;; .el files go in ~/.emacs.d/lisp/
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (load "togetherly")
+(load "kanban")
+(require 'kanban)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -98,7 +110,7 @@
   "A theme by Ian Y.E. Pan. Licensed under GNU GPLv3.")
 (custom-theme-set-faces
  `tron
-;; `(default ((t (:background "#000000" :foreground "#6A8397" ))))
+ ;; `(default ((t (:background "#000000" :foreground "#6A8397" ))))
  `(cursor ((t (:background "#D7F0Ff"))))
  `(region ((t (:background "#3E5668"))))
  `(bold ((t (:weight normal :foreground "DarkGoldenrod2"))))
@@ -116,9 +128,9 @@
  `(font-lock-builtin-face ((t (:foreground "#5FC4FF"))))
  `(font-lock-doc-face ((t (:foreground "#828D9C" :italic t))))
  `(font-lock-comment-face ((t (
-			       :foreground "#CBEBFF"
-					   :background nil
-					   :italic t))))
+                               :foreground "#CBEBFF"
+                                           :background nil
+                                           :italic t))))
  `(font-lock-string-face ((t (:foreground "#387AAA"))))
  `(font-lock-variable-name-face ((t (:foreground "#9BBDD6"))))
  `(font-lock-function-name-face ((t (:foreground "#4BB5BE"))))
@@ -131,32 +143,32 @@
  `(minibuffer-prompt ((t (:foreground "#729fcf" ))))
  `(font-lock-warning-face ((t (:foreground "red" :bold t))))
  `(dashboard-banner-logo-title-face ((t (
-					 :inherit default
-						  :overline t
-						  :height 1.15
-						  :family "Monaco"))))
+                                         :inherit default
+                                                  :overline t
+                                                  :height 1.15
+                                                  :family "Monaco"))))
  `(dashboard-heading-face ((t (
-			       :inherit default
-					:foreground "#CBEBFF"
-					:height 1.1))))
+                               :inherit default
+                                        :foreground "#CBEBFF"
+                                        :height 1.1))))
  `(org-block ((t (:background "#20282F" :foreground "#839DB2"))))
  `(org-document-title ((t (:height 2.0 :foreground "#9bbdd6"
-				   :family "Georgia"))))
+                                   :family "Georgia"))))
  `(org-level-1 ((t (
-		    :inherit outline-1
-			     :weight bold
-			     :foreground "#94DCFE"
-			     :height 1.3))))
+                    :inherit outline-1
+                             :weight bold
+                             :foreground "#94DCFE"
+                             :height 1.3))))
  `(org-level-2 ((t (
-		    :inherit outline-2
-			     :weight bold
-			     :foreground "#80E3E2"
-			     :height 1.1))))
+                    :inherit outline-2
+                             :weight bold
+                             :foreground "#80E3E2"
+                             :height 1.1))))
  `(org-level-3 ((t (
-		    :inherit outline-3
-			     :weight bold
-			     :foreground "#528BD1"
-			     :height 1.1))))
+                    :inherit outline-3
+                             :weight bold
+                             :foreground "#528BD1"
+                             :height 1.1))))
  `(org-table ((t (:background "#002831" :foreground "#9bbdd6"))))
 
  `(rainbow-delimiters-depth-1-face ((t (:foreground "#80E3E2"))))
@@ -368,7 +380,7 @@
    (scheme . t)
    (sql . t)
    (sqlite . t)
-   (R . t)
+   ;; (R . t)
    ;; (lua . t)
    ;; (matlab . t)
    ;; (processing . t)
@@ -474,20 +486,34 @@
      buffer `(parameters))
     ))
 
-;; open IDE mode (dired-sidebar and debugger-terminal)
+;; open IDE mode (treemacs and debugger-terminal)
 (defun ide-mode ()
   "open IDE window layout"
   (interactive)
-  (let ((dired_buffer (dired-noselect default-directory)) (multiterm_buffer (multi-term-dedicated-open)))
-    (with-current-buffer dired_buffer (dired-hide-details-mode t))
-    (display-buffer-in-side-window
-     dired_buffer `((side . left) (slot . 0)
-                    (window-width . fit-window-to-buffer)
-                    (preserve-size . (t . nil)) ,parameters))
+  (let ((multiterm_buffer (multi-term-dedicated-open)))
+    (treemacs--init)
     (with-current-buffer multiterm_buffer)
     (display-buffer
-     multiterm_buffer `(parameters)))
+     multiterm_buffer `(parameters))
+    )
   )
+
+
+(other-buffer)
+;; old IDE mode code (with simple dired-sidebar)
+;; (defun ide-mode ()
+;;   "open IDE window layout"
+;;   (interactive)
+;;   (let ((dired_buffer (dired-noselect default-directory)) (multiterm_buffer (multi-term-dedicated-open)))
+;;     (with-current-buffer dired_buffer (dired-hide-details-mode t))
+;;     (display-buffer-in-side-window
+;;      dired_buffer `((side . left) (slot . 0)
+;;                     (window-width . fit-window-to-buffer)
+;;                     (preserve-size . (t . nil)) ,parameters))
+;;     (with-current-buffer multiterm_buffer)
+;;     (display-buffer
+;;      multiterm_buffer `(parameters)))
+;;   )
 
 
 ;; - GENERAL DEV - ;;
