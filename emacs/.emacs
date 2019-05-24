@@ -12,7 +12,7 @@
  '(multi-term-scroll-to-bottom-on-output t)
  '(package-selected-packages
    (quote
-    (treemacs org-kanban elisp-lint aggressive-indent sly rudel navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
+    (lsp-ui treemacs org-kanban elisp-lint aggressive-indent sly rudel navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
  '(safe-local-variable-values
    (quote
     ((eval progn
@@ -74,8 +74,7 @@
 ;; .el files go in ~/.emacs.d/lisp/
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (load "togetherly")
-(load "kanban")
-(require 'kanban)
+(load "multi-term-ext.el")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -361,7 +360,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
-   (sh . t)
+   (shell . t)
    (awk . t)
    (screen . t)
    (C . t)
