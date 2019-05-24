@@ -23,7 +23,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "main", "term", "browser", "split", "conf", "misc" };
+static const char *tags[] = { "emacs", "term", "term", "browser", "misc", "misc" };
 
 static const Rule rules[] = {
     /* xprop(1):
