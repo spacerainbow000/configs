@@ -490,7 +490,7 @@
   "open IDE window layout"
   (interactive)
   (let ((multiterm_buffer (multi-term-dedicated-open)))
-    (treemacs--init)
+    (treemacs)
     (with-current-buffer multiterm_buffer)
     (display-buffer
      multiterm_buffer `(parameters))
