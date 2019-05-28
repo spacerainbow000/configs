@@ -12,16 +12,16 @@
  '(multi-term-scroll-to-bottom-on-output t)
  '(package-selected-packages
    (quote
-    (lsp-ui treemacs org-kanban elisp-lint aggressive-indent sly rudel navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
+    (org-link-minor-mode treemacs org-kanban elisp-lint aggressive-indent sly rudel navi-mode multi-term csv-mode smart-mode-line-powerline-theme smart-mode-line auto-complete ssh-deploy ssh-agency nginx-mode zenburn-theme theme-changer yaml-mode meghanada magit kill-ring-search tramp-term elpy company flycheck-demjsonlint anzu flycheck browse-kill-ring bash-completion slack logview use-package vlf nlinum)))
  '(safe-local-variable-values
    (quote
     ((eval progn
-           (org-babel-goto-named-src-block "startup")
-           (org-babel-execute-src-block)
-           (outline-hide-sublevels 1))
+	   (org-babel-goto-named-src-block "startup")
+	   (org-babel-execute-src-block)
+	   (outline-hide-sublevels 1))
      (eval progn
-           (org-babel-goto-named-src-block "startup")
-           (org-babel-execute-src-block))
+	   (org-babel-goto-named-src-block "startup")
+	   (org-babel-execute-src-block))
      (org-confirm-babel-evaluate))))
  '(term-bind-key-alist
    (quote
@@ -343,6 +343,13 @@
 ;;; ORG MODE ;;;
 ;;;;;;;;;;;;;;;;
 
+;; ensure latest version
+(use-package org
+  :ensure t)
+
+;; use old style source block expansion
+(require 'org-tempo)
+
 ;; make sure org directory exists
 (start-process-shell-command "ensure-emacs-org-dir-existent" nil "mkdir -p ~/.emacs.d/org")
 (start-process-shell-command "ensure-emacs-org-dir-existent" nil "ln -s ~/.emacs.d/org ~/org > /dev/null 2>&1")
@@ -436,9 +443,9 @@
 (add-hook 'org-babel-after-execute-hook 'display-ansi-colors)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; EXTRA MODE CONFIGS ;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; MISC MODE CONFIGS ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; anzu
 (use-package anzu
@@ -449,6 +456,24 @@
 ;; vlf
 (use-package vlf
   :ensure t)
+
+;; nlinum
+(use-package nlinum
+  :ensure t)
+
+;; auto-complete
+(use-package auto-complete
+  :ensure t)
+
+;; ;; lsp
+;; (use-package lsp-mode :ensure t)
+;; (use-package lsp-ui :ensure t)
+;; (use-package lsp-common :ensure t)
+;; (use-package lsp-clangd :ensure t)
+;; (use-package lsp-python :ensure t)
+;; (use-package lsp-sh :ensure t)
+;; (use-package lsp-html :ensure t)
+;; (use-package lsp-treemacs :ensure t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
